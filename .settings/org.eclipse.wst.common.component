@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="SzkolaProgramowania">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/User"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Exercise"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Group"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Solution"/>
+        <property name="context-root" value="SzkolaProgramowania"/>
+        <property name="java-output-path" value="/SzkolaProgramowania/build/classes"/>
+    </wb-module>
+</project-modules>
