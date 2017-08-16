@@ -1,5 +1,6 @@
 package user;
 
+
 import java.io.IOException;
 import java.util.List;
 
@@ -10,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UserPanel
+ * Servlet implementation class userDetails
  */
-@WebServlet("/UserPanel")
-public class UserPanel extends HttpServlet {
+@WebServlet("/userDetails")
+public class userDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserPanel() {
+    public userDetails() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,10 +29,12 @@ public class UserPanel extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int temp = Integer.parseInt(request.getParameter("group"));
 		UserSQL userSQL = new UserSQL() ; 
-		List<User> user = userSQL.findAll();
-		request.setAttribute("user",user);
-		getServletContext().getRequestDispatcher("/indexUS.jsp").forward(request, response);
+		List<User> user = userSQL.findByGroupId(temp);
+		request.setAttribute("user", user);
+		getServletContext().getRequestDispatcher("/userDetailsSerr.jsp").forward(request, response);
+		
 		
 	}
 

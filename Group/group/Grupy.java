@@ -1,6 +1,8 @@
-package user;
+package group;
+
 
 import java.io.IOException;
+import java.security.acl.Group;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,17 +11,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
+
+
 /**
- * Servlet implementation class UserPanel
+ * Servlet implementation class Grupy
  */
-@WebServlet("/UserPanel")
-public class UserPanel extends HttpServlet {
+@WebServlet("/Grupy")
+public class Grupy extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserPanel() {
+    public Grupy() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,10 +34,13 @@ public class UserPanel extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserSQL userSQL = new UserSQL() ; 
-		List<User> user = userSQL.findAll();
-		request.setAttribute("user",user);
-		getServletContext().getRequestDispatcher("/indexUS.jsp").forward(request, response);
+		
+		GroupSQL groupSQL = new GroupSQL();
+		List<group.Group> group = groupSQL.findAll();
+		request.setAttribute("group", group);
+		getServletContext().getRequestDispatcher("/allGroups.jsp").forward(request, response);
+		
+		
 		
 	}
 

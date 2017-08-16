@@ -1,6 +1,8 @@
-package user;
+package solution;
+
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,16 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UserPanel
+ * Servlet implementation class Solution_Servlet
  */
-@WebServlet("/UserPanel")
-public class UserPanel extends HttpServlet {
+@WebServlet("/Solution_Servlet")
+public class Solution_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserPanel() {
+    public Solution_Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,12 +29,19 @@ public class UserPanel extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserSQL userSQL = new UserSQL() ; 
-		List<User> user = userSQL.findAll();
-		request.setAttribute("user",user);
-		getServletContext().getRequestDispatcher("/indexUS.jsp").forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			
+			SolutionSQL solutionSQL = new SolutionSQL() ; 
+			String paramCOntext = getServletContext().getInitParameter("number-solutions");
+			int param = Integer.parseInt(getServletContext().getInitParameter("number-solutions"));
+			List<Solution> solutionSQLs = solutionSQL.loadAll(param);
+			request.setAttribute("solutionSQLs", solutionSQLs);
+			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+			
 		
+	
+		
+		
+	
 	}
 
 	/**

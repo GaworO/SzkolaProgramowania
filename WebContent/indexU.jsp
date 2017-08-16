@@ -20,9 +20,10 @@ Prosze wprowadzić hasło:
 <input type="text" name="password"/>
 <br>
 Proszę wprowadzić id grupy :
-<input type="number" name="id" min="1"/>
+<input type="text" name="id" min="1"/>
 <br>
-<input type="hidden" name="userId" value="${param.user}">
+Prosze wprowaszic swoje id 
+ <input type="number" name="userId" <%-- value="${param.user}" --%>> 
 <input type="submit" name="Submit"/>
 
 </form>

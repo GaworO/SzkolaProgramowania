@@ -1,7 +1,8 @@
 package user;
 
+
 import java.io.IOException;
-import java.util.List;
+import java.net.Inet4Address;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UserPanel
+ * Servlet implementation class UserAction
  */
-@WebServlet("/UserPanel")
-public class UserPanel extends HttpServlet {
+@WebServlet("/UserAction")
+public class UserAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserPanel() {
+    public UserAction() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,10 +29,39 @@ public class UserPanel extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserSQL userSQL = new UserSQL() ; 
-		List<User> user = userSQL.findAll();
-		request.setAttribute("user",user);
-		getServletContext().getRequestDispatcher("/indexUS.jsp").forward(request, response);
+		
+		
+		String act = request.getParameter("acction");
+		UserSQL userSQL = new UserSQL(); 
+		int userId = Integer.parseInt(request.getParameter("user"));
+		
+		if(act.equals("add")){
+			getServletContext().getRequestDispatcher("indexU").forward(request, response);
+			
+			
+			
+		} else if(act.equals("delete")){
+			User user = userSQL.findById(userId);
+			userSQL.delete(user);
+			getServletContext().getRequestDispatcher("/UserPanel").forward(request, response);
+			
+			
+		}else if(act.equals("edit")){
+			
+			User user = userSQL.findById(userId);
+			userSQL.update(user);
+			request.setAttribute("userSQL", userSQL);
+			getServletContext().getRequestDispatcher("/indexUS").forward(request, response);
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
 		
 	}
 
@@ -40,7 +70,7 @@ public class UserPanel extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
 }

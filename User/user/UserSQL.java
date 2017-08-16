@@ -22,6 +22,7 @@ public class UserSQL implements UserDao {
 	private static String DELETE_USER_BY_ID = "DELETE FROM USER  WHERE user_id = ?";
 	private static String DELETE_ALL = "DELETE * FROM USER";
 	private static String FIND_BY_GROUP_ID = "SELECT * FROM USER WHERE group_id = ?";
+	
 
 	private static String USER_ID = "user_id";
 	private static String USERNAME = "username";
@@ -81,7 +82,7 @@ public class UserSQL implements UserDao {
 	public List<User> findAll() {
 
 		try (Connection connection = createConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID);
+				PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL);
 				ResultSet rs = preparedStatement.executeQuery();) {
 
 			List<User> user = new ArrayList<>();

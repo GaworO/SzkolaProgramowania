@@ -16,15 +16,22 @@ public class GroupSQL implements GroupDao {
 	private static String DELETE_ALL = "DELETE * FROM USER_GROUP ";
 	private static String DELETE_BY_GROUP_ID = "DELETE * FROM USER_GROUP WHERE group_id=? ";
 	private static String UPDATE_GROUP = "UPDATE USER_GROUP SET group_id=? , name=? WHERE group_id=?";
-	private static String INSERT_GROUP = "INSERT INTO USER_GROUP(name) VALUE (?)";	
+	private static String INSERT_GROUP = "INSERT INTO USER_GROUP(name) VALUE (?)";
 	private static String GROUP_ID = "group_id";
 	private static String NAME = "name";
 
-
+	
+	public GroupSQL() {
+	}
+	
+	
 	private Connection createConnection() throws SQLException {
 		Connection c = DbUtil.getConn();
 		return c;
 	}
+	
+	
+	
 
 	@Override
 	public Group insert(Group group) {
@@ -58,22 +65,19 @@ public class GroupSQL implements GroupDao {
 	public List<Group> findAll() {
 
 		try (Connection connection = createConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL);) {
+				PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL);
+				ResultSet rs = preparedStatement.executeQuery();) {
 
-			List<Group> group = new ArrayList<>();
+			List<Group> groups = new ArrayList<>();
 
-			try (ResultSet rs = preparedStatement.executeQuery()) {
-
-				while (rs.next()) {
-					group.add(new Group(rs.getInt(GROUP_ID), rs.getString(NAME)));
-
-				}
-				return group;
+			while (rs.next()) {
+				groups.add(new Group(rs.getInt(GROUP_ID), rs.getString(NAME)));
 
 			}
+			return groups;
 
 		} catch (SQLException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 
 	}
@@ -124,11 +128,12 @@ public class GroupSQL implements GroupDao {
 			List<Group> groups = new ArrayList<>();
 			preparedStatement.setInt(1, group.getGroup_id());
 			try (ResultSet rs = preparedStatement.executeQuery();) {
-				while (rs.next()) {
+				if (rs.first()) {
 					groups.add(new Group(rs.getInt(GROUP_ID), rs.getString(NAME)));
-
+					return groups;
+				} else {
+					throw new RuntimeException();
 				}
-				return groups;
 
 			}
 		} catch (SQLException e) {
@@ -137,18 +142,16 @@ public class GroupSQL implements GroupDao {
 		}
 	}
 
-	
-
 	@Override
 	public void deleteAll() {
-		try (Connection connection = createConnection() ;
-			 PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL)){
-			
+		try (Connection connection = createConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL)) {
+
 			int rs = preparedStatement.executeUpdate();
-			if(rs != 0 ) {
+			if (rs != 0) {
 				throw new RuntimeException("Nie udało się usunać");
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}

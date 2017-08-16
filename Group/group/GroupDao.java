@@ -13,11 +13,7 @@ public interface GroupDao {
 	void deleteAll();
 	
 	
-	
-	
-	
-	
-	
+		
 	
 	
 	

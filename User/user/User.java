@@ -21,6 +21,10 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
+	public User(int id) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getId() {
 		return id;
 	}

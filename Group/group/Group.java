@@ -24,6 +24,10 @@ public class Group {
 	@Override
 	public String toString() {
 		return "Group [group_id=" + group_id + ", group_name=" + group_name + "]";
+	}
+	public Group() {
+		super();
+		// TODO Auto-generated constructor stub
 	} 
 	
 	
