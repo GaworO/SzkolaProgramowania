@@ -1,0 +1,2 @@
+Jest to prosta aplikacja połaćzona z bazą danych która pozwala użytkownikowi dodawać i odejmować nowych studentów oraz ich zadania. 
+Aplikacja używa bazy danych MySQL , Servletów oraz Javy.
